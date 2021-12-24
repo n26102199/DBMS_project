@@ -1,0 +1,18 @@
+<h1>select from where demo</h1>
+
+{% if error_flag %}
+
+	<h2>Error</h2>
+	<br><br>
+	<a href="{% url 'home' %}">home</a>
+
+{% else %}
+	query: {{ sql }}
+	{% for result in results %}
+		<ul>VID: {{ result.VID }}, VNAME: {{ result.VNAME }}, VFEE: {{ result.VFEE }}, VNET: {{ result.VNET }}</ul>
+	{% endfor %}
+
+	<a href="{% url 'home' %}">home</a>
+{% endif %}
+
+{{ temp }} {{ results }}

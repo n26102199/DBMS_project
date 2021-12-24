@@ -1,2 +1,15 @@
 <h1>Hello World</h1>
-{{ result }}
+
+<form action="{% url 'select_from_where_demo' %}" method=GET>
+	<select name="selected form" class="form-select" aria-label="Default select example">
+	  <option selected>default query</option>
+	  <option value="select * from VENUE">select * from VENUE</option>
+	  <option value="select * from TEAM">select * from TEAM</option>
+	  <option value="3">Three</option>
+	  <input type="submit" value="Select">
+	</select>
+</form>
+
+<br><br>
+
+<a href="{% url 'select_from_where_demo' %}">select_from_where</a>

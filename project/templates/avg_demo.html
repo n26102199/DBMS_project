@@ -1,0 +1,20 @@
+<h1>avg demo</h1>
+
+{% if error_flag %}
+
+	<h2>Error</h2>
+	<br><br>
+	{{ e }}
+	<br><br>
+	<a href="{% url 'home' %}">home</a>
+
+{% else %}
+	query: {{ sql }}
+	<br>
+
+	{% for avg_result in avg_results %}
+	avg: {{ avg_result.avg_vfee }}
+	{% endfor %}
+
+	<a href="{% url 'home' %}">home</a>
+{% endif %}

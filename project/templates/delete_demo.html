@@ -1,0 +1,24 @@
+<h1>delete demo</h1>
+
+{% if error_flag %}
+
+	<h2>Error</h2>
+	<br><br>
+	{{ e }}
+	<br><br>
+	<a href="{% url 'home' %}">home</a>
+
+{% else %}
+	query: {{ sql }}
+	{% for before_delete_result in before_delete_results %}
+		<ul>{{ before_delete_result.TEST_name }}</ul>
+	{% endfor %}
+
+	delete!!!
+
+	{% for after_delete_result in after_delete_results %}
+		<ul>{{ after_delete_result.TEST_name }}</ul>
+	{% endfor %}
+
+	<a href="{% url 'home' %}">home</a>
+{% endif %}

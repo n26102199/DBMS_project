@@ -1,4 +1,4 @@
-<h1>select from where demo</h1>
+<h1>in demo</h1>
 
 {% if error_flag %}
 
@@ -10,11 +10,11 @@
 
 {% else %}
 	query: {{ sql }}
-	{% for result in results %}
-		<ul>VID: {{ result.VID }}, VNAME: {{ result.VNAME }}, VFEE: {{ result.VFEE }}, VNET: {{ result.VNET }}</ul>
+	<br>
+
+	{% for in_result in in_results %}
+		{{ in_result.TNAME }}
 	{% endfor %}
 
 	<a href="{% url 'home' %}">home</a>
 {% endif %}
-
-{{ temp }} {{ results }}

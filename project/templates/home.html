@@ -1,6 +1,43 @@
 <h1>Hello World</h1>
 
-<form action="{% url 'select_from_where_demo' %}" method=GET>
+<br><br>
+
+<button type="submit" onclick="location.href='{% url 'select_from_where_demo' %}'">select_from_where_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'delete_demo' %}'">delete_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'insert_demo' %}'">insert_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'update_demo' %}'">update_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'in_demo' %}'">in_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'not_in_demo' %}'">not_in_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'exists_demo' %}'">exists_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'not_exists_demo' %}'">not_exists_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'count_demo' %}'">count_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'sum_demo' %}'">sum_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'max_demo' %}'">max_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'min_demo' %}'">min_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'avg_demo' %}'">avg_btn</button>
+<br>
+<button type="submit" onclick="location.href='{% url 'having_demo' %}'">having_btn</button>
+
+<form class='d-flex' method="POST" action="{% url 'home' %}">
+	{% csrf_token %}
+	<input class='form-control me-2' placeholder="enter query" name="sql_query">
+</form>
+
+<!-- <a href="{% url 'select_from_where_demo' %}">select_from_where</a> -->
+
+<!-- <form action="{% url 'select_from_where_demo' %}" method=GET>
 	<select name="selected form" class="form-select" aria-label="Default select example">
 	  <option selected>default query</option>
 	  <option value="select * from VENUE">select * from VENUE</option>
@@ -8,8 +45,4 @@
 	  <option value="3">Three</option>
 	  <input type="submit" value="Select">
 	</select>
-</form>
-
-<br><br>
-
-<a href="{% url 'select_from_where_demo' %}">select_from_where</a>
+</form> -->

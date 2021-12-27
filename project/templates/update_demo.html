@@ -1,0 +1,24 @@
+<h1>update demo</h1>
+
+{% if error_flag %}
+
+	<h2>Error</h2>
+	<br><br>
+	{{ e }}
+	<br><br>
+	<a href="{% url 'home' %}">home</a>
+
+{% else %}
+	query: {{ sql }}
+	{% for before_update_result in before_update_results %}
+		<ul>{{ before_update_result.TEST_name }}</ul>
+	{% endfor %}
+
+	update!!!
+
+	{% for after_update_result in after_update_results %}
+		<ul>{{ after_update_result.TEST_name }}</ul>
+	{% endfor %}
+
+	<a href="{% url 'home' %}">home</a>
+{% endif %}

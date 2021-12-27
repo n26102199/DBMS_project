@@ -1,0 +1,20 @@
+<h1>sum demo</h1>
+
+{% if error_flag %}
+
+	<h2>Error</h2>
+	<br><br>
+	{{ e }}
+	<br><br>
+	<a href="{% url 'home' %}">home</a>
+
+{% else %}
+	query: {{ sql }}
+	<br>
+
+	{% for sum_result in sum_results %}
+	sum: {{ sum_result.fund_amount }}
+	{% endfor %}
+
+	<a href="{% url 'home' %}">home</a>
+{% endif %}

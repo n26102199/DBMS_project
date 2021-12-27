@@ -1,0 +1,20 @@
+<h1>exists demo</h1>
+
+{% if error_flag %}
+
+	<h2>Error</h2>
+	<br><br>
+	{{ e }}
+	<br><br>
+	<a href="{% url 'home' %}">home</a>
+
+{% else %}
+	query: {{ sql }}
+	<br>
+
+	{% for exists_result in exists_results %}
+		{{ exists_result.SNAME }}
+	{% endfor %}
+
+	<a href="{% url 'home' %}">home</a>
+{% endif %}

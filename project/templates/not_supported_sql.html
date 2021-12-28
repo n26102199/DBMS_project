@@ -1,9 +1,10 @@
-<h1><center>count demo</center></h1>
+<h1><center>not supported sql</center></h1>
 
 <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="
     sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+<br><br>
 {% if error_flag %}
 
 	<h2>Error</h2>
@@ -18,17 +19,11 @@
   	</div>
 
 	<table class="table table-bordered">
-	  	<thead>
-		    <tr>
-		      <th class="table-primary" scope="col">Result</th>
-		      <th class="table-primary" scope="col">count_amount</th>
-		    </tr>
-	  	</thead>
   		<tbody>
-		  	{% for count_result in count_results %}
+		  	{% for not_supported_result in not_supported_results %}
 			  	<tr>
 			      <th scope="row"></th>
-			      <td>{{ count_result.count_amount }}</td>
+			      <td>{{ not_supported_result }}</td>
 			    </tr>
 			{% endfor %}
   		</tbody>

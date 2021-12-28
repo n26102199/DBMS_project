@@ -11,13 +11,13 @@
 {% else %}
 	query: {{ sql }}
 	{% for before_update_result in before_update_results %}
-		<ul>{{ before_update_result.TEST_name }}</ul>
+		<ul>{{ before_update_result.RLEVEL }}</ul>
 	{% endfor %}
 
 	update!!!
 
 	{% for after_update_result in after_update_results %}
-		<ul>{{ after_update_result.TEST_name }}</ul>
+		<ul>{{ after_update_result.RLEVEL }}</ul>
 	{% endfor %}
 
 	<a href="{% url 'home' %}">home</a>

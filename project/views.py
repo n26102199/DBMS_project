@@ -1,16 +1,6 @@
 from django.shortcuts import render, redirect
 import pymysql.cursors
-
-def home(request):
-    if request.method == "POST":
-        sql = request.POST['sql_query']
-        if sql == "select * from VENUE":
-            return redirect('select_from_where_demo')
-        # elif sql == "delete from TEST_TABLE where TEST_name='test_name2'":
-        else:
-            return render(request, 'home.html', {})
-    else:
-        return render(request, 'home.html', {})
+from django.contrib import messages
 
 def connect_to_DB():
     config = {
@@ -26,6 +16,193 @@ def connect_to_DB():
     connection = pymysql.connect(**config)
     return connection
 
+def get_all_DB():
+    connection = connect_to_DB()
+
+    try:
+        with connection.cursor() as cursor:
+        # 執行sql語句，進行查詢
+            sql_ = "select * from REFEREE"
+            cursor.execute(sql_)
+            # 獲取查詢結果
+            referee_results = cursor.fetchall()
+            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
+            connection.commit()
+    except Exception as e:
+        error_flag = 1
+        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
+
+    try:
+        with connection.cursor() as cursor:
+        # 執行sql語句，進行查詢
+            sql_ = "select * from VENUE"
+            cursor.execute(sql_)
+            # 獲取查詢結果
+            venue_results = cursor.fetchall()
+            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
+            connection.commit()
+    except Exception as e:
+        error_flag = 1
+        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
+
+    try:
+        with connection.cursor() as cursor:
+        # 執行sql語句，進行查詢
+            sql_ = "select * from TEAM"
+            cursor.execute(sql_)
+            # 獲取查詢結果
+            team_results = cursor.fetchall()
+            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
+            connection.commit()
+    except Exception as e:
+        error_flag = 1
+        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
+
+    try:
+        with connection.cursor() as cursor:
+        # 執行sql語句，進行查詢
+            sql_ = "select * from STUDENT"
+            cursor.execute(sql_)
+            # 獲取查詢結果
+            student_results = cursor.fetchall()
+            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
+            connection.commit()
+    except Exception as e:
+        error_flag = 1
+        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
+
+    try:
+        with connection.cursor() as cursor:
+        # 執行sql語句，進行查詢
+            sql_ = "select * from FUNDER"
+            cursor.execute(sql_)
+            # 獲取查詢結果
+            funder_results = cursor.fetchall()
+            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
+            connection.commit()
+    except Exception as e:
+        error_flag = 1
+        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
+
+    try:
+        with connection.cursor() as cursor:
+        # 執行sql語句，進行查詢
+            sql_ = "select * from COMPETITION"
+            cursor.execute(sql_)
+            # 獲取查詢結果
+            competition_results = cursor.fetchall()
+            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
+            connection.commit()
+    except Exception as e:
+        error_flag = 1
+        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
+
+    try:
+        with connection.cursor() as cursor:
+        # 執行sql語句，進行查詢
+            sql_ = "select * from MANAGE"
+            cursor.execute(sql_)
+            # 獲取查詢結果
+            manage_results = cursor.fetchall()
+            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
+            connection.commit()
+    except Exception as e:
+        error_flag = 1
+        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
+
+    try:
+        with connection.cursor() as cursor:
+        # 執行sql語句，進行查詢
+            sql_ = "select * from BELONG"
+            cursor.execute(sql_)
+            # 獲取查詢結果
+            belong_results = cursor.fetchall()
+            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
+            connection.commit()
+    except Exception as e:
+        error_flag = 1
+        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
+
+    try:
+        with connection.cursor() as cursor:
+        # 執行sql語句，進行查詢
+            sql_ = "select * from FUND"
+            cursor.execute(sql_)
+            # 獲取查詢結果
+            fund_results = cursor.fetchall()
+            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
+            connection.commit()
+    except Exception as e:
+        error_flag = 1
+        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
+
+    return referee_results, venue_results, team_results, student_results, funder_results, competition_results, manage_results, belong_results, fund_results
+
+
+def home(request):
+    referee_results, venue_results, team_results, student_results, funder_results, competition_results, manage_results, belong_results, fund_results = get_all_DB()
+    if request.method == "POST":
+        sql = request.POST['sql_query']
+        if sql == "select * from VENUE":
+            return redirect('select_from_where_demo')
+        elif sql == "delete from referee where rname='裁判J'":
+            return redirect('delete_demo')
+        elif sql == "insert into referee value('J123456789', '裁判J', 'J')":
+            return redirect('insert_demo')
+        elif sql == "update referee set RLEVEL='S' where RLEVEL='J'":
+            return redirect('update_demo')
+        elif sql == "select count(SSSN) as count_amount from STUDENT":
+            return redirect('count_demo')
+        elif sql == "select sum(amount) as fund_amount from FUND":
+            return redirect('sum_demo')
+        elif sql == "select max(amount) as max_amount from FUND":
+            return redirect('max_demo')
+        elif sql == "select min(amount) as min_amount from FUND":
+            return redirect('min_demo')
+        elif sql == "select avg(vfee) as avg_vfee from VENUE":
+            return redirect('avg_demo')
+        elif sql == "select TNAME from TEAM where TID in (select TID from FUND where amount>500)":
+            return redirect('in_demo')
+        elif sql == "select TNAME from TEAM where TID not in (select TID from FUND where amount>500)":
+            return redirect('not_in_demo')
+        elif sql == "select SNAME from STUDENT where exists (select * from BELONG where STUDENT.SSSN=BELONG.SSSN && STARTDATE > '2021-10-05')":
+            return redirect('exists_demo')
+        elif sql == "select SNAME from STUDENT where not exists (select * from BELONG where STUDENT.SSSN=BELONG.SSSN && STARTDATE > '2021-10-05')":
+            return redirect('not_exists_demo')
+        elif sql == "select TNAME, SCORE from TEAM, COMPETITION where (TEAM.TID=COMPETITION.TID) having SCORE > 3":
+            return redirect('having_demo')
+        else:
+            connection = connect_to_DB()
+
+            sql="..."
+            error_flag = 0
+    
+            try:
+                with connection.cursor() as cursor:
+                # 執行sql語句，進行查詢
+                    cursor.execute(sql)
+                    # 獲取查詢結果
+                    results = cursor.fetchall()
+                    # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
+                    connection.commit()
+            except Exception as e:
+                error_flag = 1
+                return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
+            finally:
+                connection.close();
+            return render(request, 'not_supported_sql.html', {'not_supported_results': not_supported_results,
+                                                            'sql': sql})
+    else:
+        return render(request, 'home.html', {'referee_results': referee_results,
+                                                'venue_results': venue_results,
+                                                'team_results': team_results,
+                                                'student_results': student_results,
+                                                'funder_results': funder_results, 
+                                                'competition_results': competition_results,
+                                                'manage_results': manage_results,
+                                                'belong_results': belong_results,
+                                                'fund_results': fund_results})
+
 def select_from_where_demo(request):
     connection = connect_to_DB()
 
@@ -39,7 +216,6 @@ def select_from_where_demo(request):
             cursor.execute(sql)
             # 獲取查詢結果
             results = cursor.fetchall()
-            print(results)
             # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
             connection.commit()
     except Exception as e:
@@ -54,24 +230,8 @@ def delete_demo(request):
     connection = connect_to_DB()
 
     # get selected sql
-    sql = "delete from TEST_TABLE where TEST_name='test_name2'"
+    sql = "delete from referee where rname='裁判J'"
     error_flag = 0
-
-    # get sql result (before delete)
-    try:
-        with connection.cursor() as cursor:
-        # 執行sql語句，進行查詢
-            sql_ = "select * from TEST_TABLE"
-            cursor.execute(sql_)
-            # 獲取查詢結果
-            before_delete_results = cursor.fetchall()
-            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
-            connection.commit()
-    except Exception as e:
-        error_flag = 1
-        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
-    # finally:
-    #     connection.close();
 
     # execute delete action
     try:
@@ -83,55 +243,19 @@ def delete_demo(request):
     except Exception as e:
         error_flag = 1
         return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
-    # finally:
-    #     connection.close();
-
-    # get sql result (after delete)
-    try:
-        with connection.cursor() as cursor:
-        # 執行sql語句，進行查詢
-            sql_ = "select * from TEST_TABLE"
-            cursor.execute(sql_)
-            # 獲取查詢結果
-            after_delete_results = cursor.fetchall()
-            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
-            connection.commit()
-    except Exception as e:
-        error_flag = 1
-        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
     finally:
-        connection.close();
+        connection.close()
 
-    return render(request, 'delete_demo.html', {'before_delete_results': before_delete_results, 
-                                                            'after_delete_results': after_delete_results,
-                                                            'sql': sql, 
-                                                            'error_flag': error_flag,
-                                                            })
+    return redirect('home')
 
 def insert_demo(request):
     connection = connect_to_DB()
 
     #selected sql
-    sql = "insert into TEST_TABLE values('django1')"
+    sql = "insert into referee value('J123456789', '裁判J', 'J')"
     error_flag = 0
 
-    # get sql result (before delete)
-    try:
-        with connection.cursor() as cursor:
-        # 執行sql語句，進行查詢
-            sql_ = "select * from TEST_TABLE"
-            cursor.execute(sql_)
-            # 獲取查詢結果
-            before_insert_results = cursor.fetchall()
-            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
-            connection.commit()
-    except Exception as e:
-        error_flag = 1
-        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
-    # finally:
-    #     connection.close();
-
-    # execute delete action
+    # execute insert action
     try:
         with connection.cursor() as cursor:
         # 執行sql語句，進行插入
@@ -141,51 +265,17 @@ def insert_demo(request):
     except Exception as e:
         error_flag = 1
         return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
-    # finally:
-    #     connection.close();
-
-    # get sql result (after delete)
-    try:
-        with connection.cursor() as cursor:
-        # 執行sql語句，進行查詢
-            sql_ = "select * from TEST_TABLE"
-            cursor.execute(sql_)
-            # 獲取查詢結果
-            after_insert_results = cursor.fetchall()
-            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
-            connection.commit()
-    except Exception as e:
-        error_flag = 1
-        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
     finally:
         connection.close();
 
-    return render(request, 'insert_demo.html', {'before_insert_results': before_insert_results, 
-                                                'after_insert_results': after_insert_results,
-                                                'sql': sql, 
-                                                'error_flag': error_flag,
-                                                })
+    return redirect('home')
 
 def update_demo(request):
     connection = connect_to_DB()
 
     #selected sql
-    sql = "update TEST_TABLE set TEST_name='update' where TEST_name='test_name2'"
+    sql = "update referee set RLEVEL='S' where RLEVEL='J'"
     error_flag = 0
-
-    # get sql result (before delete)
-    try:
-        with connection.cursor() as cursor:
-        # 執行sql語句，進行查詢
-            sql_ = "select * from TEST_TABLE"
-            cursor.execute(sql_)
-            # 獲取查詢結果
-            before_update_results = cursor.fetchall()
-            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
-            connection.commit()
-    except Exception as e:
-        error_flag = 1
-        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
 
     # execute update action
     try:
@@ -197,28 +287,10 @@ def update_demo(request):
     except Exception as e:
         error_flag = 1
         return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
-
-    # get sql result (after delete)
-    try:
-        with connection.cursor() as cursor:
-        # 執行sql語句，進行查詢
-            sql_ = "select * from TEST_TABLE"
-            cursor.execute(sql_)
-            # 獲取查詢結果
-            after_update_results = cursor.fetchall()
-            # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
-            connection.commit()
-    except Exception as e:
-        error_flag = 1
-        return render(request, 'error.html', {'error_flag': error_flag, 'e': e})
     finally:
         connection.close();
 
-    return render(request, 'update_demo.html', {'before_update_results': before_update_results, 
-                                                'after_update_results': after_update_results,
-                                                'sql': sql, 
-                                                'error_flag': error_flag,
-                                                })
+    return redirect('home')
 
 def count_demo(request):
     connection = connect_to_DB()

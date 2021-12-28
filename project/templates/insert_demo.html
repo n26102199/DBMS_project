@@ -11,13 +11,13 @@
 {% else %}
 	query: {{ sql }}
 	{% for before_insert_result in before_insert_results %}
-		<ul>{{ before_insert_result.TEST_name }}</ul>
+		<ul>{{ before_insert_result.RNAME }}</ul>
 	{% endfor %}
 
 	insert!!!
 
 	{% for after_insert_result in after_insert_results %}
-		<ul>{{ after_insert_result.TEST_name }}</ul>
+		<ul>{{ after_insert_result.RNAME }}</ul>
 	{% endfor %}
 
 	<a href="{% url 'home' %}">home</a>

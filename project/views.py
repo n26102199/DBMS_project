@@ -143,7 +143,7 @@ def home(request):
     referee_results, venue_results, team_results, student_results, funder_results, competition_results, manage_results, belong_results, fund_results = get_all_DB()
     if request.method == "POST":
         sql = request.POST['sql_query']
-        if sql == "select * from VENUE":
+        if sql == "select * from VENUE where VFEE<=50":
             return redirect('select_from_where_demo')
         elif sql == "delete from referee where rname='裁判J'":
             return redirect('delete_demo')
@@ -173,8 +173,7 @@ def home(request):
             return redirect('having_demo')
         else:
             connection = connect_to_DB()
-
-            sql="..."
+            
             error_flag = 0
     
             try:
@@ -182,7 +181,7 @@ def home(request):
                 # 執行sql語句，進行查詢
                     cursor.execute(sql)
                     # 獲取查詢結果
-                    results = cursor.fetchall()
+                    not_supported_results = cursor.fetchall()
                     # 沒有設定預設自動提交，需要主動提交，以儲存所執行的語句
                     connection.commit()
             except Exception as e:
@@ -206,7 +205,7 @@ def home(request):
 def select_from_where_demo(request):
     connection = connect_to_DB()
 
-    temp = "select * from VENUE"
+    temp = "select * from VENUE where VFEE<=50"
     error_flag = 0
     
     try:
